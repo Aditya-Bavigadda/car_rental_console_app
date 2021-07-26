@@ -58,16 +58,24 @@ void car_interaction(std::string owner) //allows user to buy or sell cars
     {
         std::string read_from_file = "";
         std::getline(file, read_from_file);
-        user_details.push_back(read_from_file);
+        if (read_from_file != "") //if something is read, then push back
+        {
+            user_details.push_back(read_from_file);
+        }
     }
     if (user_details.size() == 2)
     {
-        std::cout << "do you want to buy a car";
+        std::cout << "Do you want to rent a car? Please type Yes or No\n";
+        //if no, exit application
+        //if yes, show them AVAILABLE cars and say if they type in car name, you will show them stats and confirm if they want to rent this car
     }
-    //check if user has car
-    //if so, ask if user wants to release car
-    //if not, ask if user wants to buy car
-    //could have money?
+    else
+    {
+        std::cout << "Do you want to return your " << user_details[2] << "? Please type Yes or No\n";
+        //if no, exit application
+        //if yes, return car and ask if they want to rent another car
+    }
+    //could have time rented?
 }
 void login_process()
 {
