@@ -5,12 +5,16 @@
 
 class Ferrari_Car
 {
-public:
-    std::string Name;
-    int year;
-    int horespower;
-    bool four_wheel_drive;
+    public:
+        std::string Name;
+        std::string engine;
+        int year;
+        int horespower;
+        bool four_wheel_drive;
+        int base_price;
+        int top_speed;
 };
+
 void registration_process(std::vector<std::string> unnacceptable_words)
 {
     bool exit_loop = false;
@@ -44,6 +48,27 @@ void registration_process(std::vector<std::string> unnacceptable_words)
     file << username << "\n" << password; //add username and password to file
 }
 
+
+//error isn't being called
+void car_interaction(std::string owner) //allows user to buy or sell cars
+{
+    std::ifstream file(owner); //opens file of user
+    std::vector<std::string> user_details;
+    for (size_t i = 0; i < 9; i++) //gets the details on the note we have on the user
+    {
+        std::string read_from_file = "";
+        std::getline(file, read_from_file);
+        user_details.push_back(read_from_file);
+    }
+    if (user_details.size() == 2)
+    {
+        std::cout << "do you want to buy a car";
+    }
+    //check if user has car
+    //if so, ask if user wants to release car
+    //if not, ask if user wants to buy car
+    //could have money?
+}
 void login_process()
 {
     std::string username, password;
@@ -59,13 +84,14 @@ void login_process()
     if (user == username && pass == password) //mini hotfix, is meant to be && but username isn't being read
     {
         std::cout << "you have logged in, welcome " << username << "\n";
+        car_interaction(user); //allows user to buy or sell cars
     }
     if (user != username || pass != password)
     {
         std::cout << "invalid username or password\n";
     }
-
 }
+
 
 int main()
 {
@@ -83,7 +109,6 @@ int main()
         else if (choice == "2")
         {
             registration_process(unnacceptable_words);
-
         }
         else
         {
