@@ -11,9 +11,30 @@ class Ferrari_Car
         int year;
         int horespower;
         bool four_wheel_drive;
-        int base_price;
         int top_speed;
+        //int base_price; maybe
+        Ferrari_Car();
+        Ferrari_Car(std::string Name, std::string engine, int year, int horespower, bool four_wheel_drive, int top_speed)
+        {
+            Name = this->Name;
+            engine = this->engine;
+            year = this->year;
+            horespower = this->horespower;
+            four_wheel_drive = this->four_wheel_drive;
+            top_speed = this->top_speed;
+        }
 };
+//bunch of avaliable ferrari cars
+Ferrari_Car Superfast{ "Ferrari 812 Superfast", "6.5L V12", 2017, 789, false, 340};
+Ferrari_Car GTS{ "Ferrari 812 GTS", "6.2L nat asp V12", 2019, 789, false, 338};
+Ferrari_Car Stradale{ "Ferrari SF90 Stradale", "4.0L TT V8 + 3 electric", 2019, 989, true, 340};
+Ferrari_Car SFSpider{ "Ferrari SF90 Spider", "4.0L TT V8 + 3 electric", 2020, 989, false, 340};
+Ferrari_Car Tributo{ "Ferrari F8 Tributo", "3.9L twin-turbo V8", 2019, 710, false, 340};
+Ferrari_Car F8Spider{ "Ferrari F8 Spider", "3.9L twin-turbo V8", 2019, 710, false, 340};
+Ferrari_Car Roma{ "Ferrari Roma", "3.9L twin-turbo V8", 2020, 612, false, 320};
+Ferrari_Car Portofino{ "Ferrari Portofino M", "3.9L twin-turbo V8", 2017, 612, false, 320};
+Ferrari_Car MonzaSP1{ "Ferrari Monza SP1", "6.5 L nat asp V12", 2019, 810, false, 299};
+Ferrari_Car MonzaSP2{ "Ferrari Monza SP2", "6.5 L nat asp V12" , 2019, 810, false, 299};
 
 void registration_process(std::vector<std::string> unnacceptable_words)
 {
@@ -48,8 +69,47 @@ void registration_process(std::vector<std::string> unnacceptable_words)
     file << username << "\n" << password; //add username and password to file
 }
 
+void renting_process() //user can rent a car
+{
+    std::string user_answer;
+    std::cin >> user_answer;
+    std::vector<std::string> carlist = { "Ferrari 812 Superfast", "Ferrari 812 GTS", "Ferrari SF90 Stradale", "Ferrari SF90 Spider", "Ferrari F8 Tributo", "Ferrari F8 Spider", "Ferrari Roma", "Ferrari Portofino M", "Ferrari Monza SP1", "Ferrari Monza SP2" };
+    if (user_answer == "yes" || user_answer == "Yes") //if user answers yes
+    {
+        std::string available_car;
+        int i = 0;
+        for (i; i < 9; i++)
+        {
+            std::vector<std::string> availablecars; //holds an array of the cars that are available to be rented
+            std::ifstream myfile(carlist[i], std::fstream::app); //creates file of the car if not created and opens it if it is
+            std::getline(myfile, available_car); //reads from file, if it has extra words then car is not available
+            if (available_car == "") //if there is nothing read
+            {
+                availablecars.push_back(available_car);
+            }
+            if (availablecars.size() == 0) //if the size is nothign
+            {
+                std::cout << "There are no cars available, please check again later\n";
+                exit; //exits the void
+            }
+            else
+            {
+                std::cout << "The " << availablecars[i] << " is available\n";
+            }
+        }
+    }
+    else if (user_answer == "no" || user_answer == "No") //if user answers no
+    {
+        std::cout << "Okay, thank you for logging in\n";
+    }
+    else
+    {
+        std::cout << "Invalid answer, redirecting back to starting page\n";
+    }
+    //if no, exit application
+     //if yes, show them AVAILABLE cars and say if they type in car name, you will show them stats and confirm if they want to rent this car
+}
 
-//error isn't being called
 void car_interaction(std::string owner) //allows user to buy or sell cars
 {
     std::ifstream file(owner); //opens file of user
@@ -66,8 +126,7 @@ void car_interaction(std::string owner) //allows user to buy or sell cars
     if (user_details.size() == 2)
     {
         std::cout << "Do you want to rent a car? Please type Yes or No\n";
-        //if no, exit application
-        //if yes, show them AVAILABLE cars and say if they type in car name, you will show them stats and confirm if they want to rent this car
+        renting_process();
     }
     else
     {
@@ -77,6 +136,7 @@ void car_interaction(std::string owner) //allows user to buy or sell cars
     }
     //could have time rented?
 }
+
 void login_process()
 {
     std::string username, password;
@@ -99,7 +159,6 @@ void login_process()
         std::cout << "invalid username or password\n";
     }
 }
-
 
 int main()
 {
