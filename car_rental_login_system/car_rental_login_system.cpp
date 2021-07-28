@@ -87,11 +87,11 @@ void renting_process() //user can rent a car
             if (available_car == "") //if there is nothing read
             {
                 availablecars.push_back(carlist[current_car_from_carlist]);
-                std::cout << "The " << availablecars[current_car_from_carlist] << " is available\n";
+                std::cout << "The " << carlist[current_car_from_carlist] << " is available\n";
             }
             else
             {
-                std::cout << "The " << carlist[current_car_from_carlist] << " is taken by " << available_car;
+                std::cout << "The " << carlist[current_car_from_carlist] << " is taken by a person with the username" << available_car << "\n";
             }
            
         }
