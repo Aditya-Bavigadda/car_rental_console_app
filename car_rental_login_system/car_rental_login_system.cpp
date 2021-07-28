@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include<ios>
 
 class Ferrari_Car
 {
@@ -76,26 +77,27 @@ void renting_process() //user can rent a car
     std::vector<std::string> carlist = { "Ferrari 812 Superfast", "Ferrari 812 GTS", "Ferrari SF90 Stradale", "Ferrari SF90 Spider", "Ferrari F8 Tributo", "Ferrari F8 Spider", "Ferrari Roma", "Ferrari Portofino M", "Ferrari Monza SP1", "Ferrari Monza SP2" };
     if (user_answer == "yes" || user_answer == "Yes") //if user answers yes
     {
-        std::string available_car;
-        int i = 0;
-        for (i; i < 9; i++)
+        int current_car_from_carlist = 0;
+         std::vector<std::string> availablecars; //holds an array of the cars that are available to be rented
+        for (current_car_from_carlist; current_car_from_carlist < carlist.size(); ++current_car_from_carlist)
         {
-            std::vector<std::string> availablecars; //holds an array of the cars that are available to be rented
-            std::ifstream myfile(carlist[i], std::fstream::app); //creates file of the car if not created and opens it if it is
+            std::string available_car = "";
+            std::ifstream myfile(carlist[current_car_from_carlist], std::fstream::app); //creates file of the car if not created and opens it if it is
             std::getline(myfile, available_car); //reads from file, if it has extra words then car is not available
             if (available_car == "") //if there is nothing read
             {
-                availablecars.push_back(available_car);
-            }
-            if (availablecars.size() == 0) //if the size is nothign
-            {
-                std::cout << "There are no cars available, please check again later\n";
-                exit; //exits the void
+                availablecars.push_back(carlist[current_car_from_carlist]);
+                std::cout << "The " << availablecars[current_car_from_carlist] << " is available\n";
             }
             else
             {
-                std::cout << "The " << availablecars[i] << " is available\n";
+                std::cout << "The " << carlist[current_car_from_carlist] << " is taken by " << available_car;
             }
+           
+        }
+        if (availablecars.size() == 0) //if the size is nothign
+        {
+            std::cout << "There are no cars available, please check again later\n";
         }
     }
     else if (user_answer == "no" || user_answer == "No") //if user answers no
