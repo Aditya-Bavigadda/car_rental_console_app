@@ -3,6 +3,7 @@
 #include <vector>
 #include <fstream>
 #include<ios>
+#include <algorithm>
 
 class Ferrari_Car
 {
@@ -17,12 +18,12 @@ class Ferrari_Car
         Ferrari_Car();
         Ferrari_Car(std::string Name, std::string engine, int year, int horespower, bool four_wheel_drive, int top_speed)
         {
-            Name = this->Name;
-            engine = this->engine;
-            year = this->year;
-            horespower = this->horespower;
-            four_wheel_drive = this->four_wheel_drive;
-            top_speed = this->top_speed;
+            this->Name = Name;
+            this->engine = engine;
+            this->year = year;
+            this->horespower = horespower;
+            this->four_wheel_drive = four_wheel_drive;
+            this->top_speed = top_speed;
         }
 };
 //bunch of avaliable ferrari cars
@@ -36,6 +37,43 @@ Ferrari_Car Roma{ "Ferrari Roma", "3.9L twin-turbo V8", 2020, 612, false, 320};
 Ferrari_Car Portofino{ "Ferrari Portofino M", "3.9L twin-turbo V8", 2017, 612, false, 320};
 Ferrari_Car MonzaSP1{ "Ferrari Monza SP1", "6.5 L nat asp V12", 2019, 810, false, 299};
 Ferrari_Car MonzaSP2{ "Ferrari Monza SP2", "6.5 L nat asp V12" , 2019, 810, false, 299};
+
+std::ostream& operator << (std::ostream& output, Ferrari_Car car) //allows us to print the car stats
+{
+    output << "\nName: " << car.Name << "\nEngine type: " << car.engine << "\nYear made: " << car.year << "\nHorsepower: " << car.horespower << "\nFour Wheel Drive: " << std::boolalpha << car.four_wheel_drive << "\nTop Speed: " << car.top_speed << "km/h\n";
+    return output;
+}
+
+void rent_car(std::vector<std::string> availablecars, std::string car_name, bool car_chosen, std::string owner)
+{
+    if (std::find(availablecars.begin(), availablecars.end(), car_name) != availablecars.end()) //if the car is available
+    {
+        std::cout << "Do you want to rent this car? Please type yes or no\n";
+        std::string rent_car;
+        std::getline(std::cin, rent_car);
+        if (rent_car == "yes" || rent_car == "Yes")
+        {
+            std::fstream file(car_name, std::ios::app);
+            file << owner;
+            std::cout << "Well done, the car has been succesfully rented\n";
+            std::fstream file2(owner, std::ios::app);
+            file2 << "\n" << car_name;
+            car_chosen = true;
+        }
+        else if (rent_car == "no" || rent_car == "No")
+        {
+            std::cout << "Okay, please type another car's name to view its stats\n";
+        }
+        else
+        {
+            std::cout << "Invalid answer, please type a car's name to view its stats\n";
+        }
+    }
+    else //if not
+    {
+        std::cout << "This car is unavailable, so you can not rent it, please type another car to view its stats: \n";
+    }
+}
 
 void registration_process(std::vector<std::string> unnacceptable_words)
 {
@@ -70,7 +108,7 @@ void registration_process(std::vector<std::string> unnacceptable_words)
     file << username << "\n" << password; //add username and password to file
 }
 
-void renting_process() //user can rent a car
+void renting_process(std::string owner) //user can rent a car
 {
     std::string user_answer;
     std::cin >> user_answer;
@@ -91,9 +129,110 @@ void renting_process() //user can rent a car
             }
             else
             {
-                std::cout << "The " << carlist[current_car_from_carlist] << " is taken by a person with the username" << available_car << "\n";
+                std::cout << "The " << carlist[current_car_from_carlist] << " is taken by a person with the username " << available_car << ".\n";
             }
-           
+        }
+        bool car_chosen = false;
+        std::cout << "Choose an car to see its stats and if the car is available, you can rent it: \n";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //clears cin cooldown, as the program was skipping over this line
+        while(true) //used to show properties of cars and uses the overloaded "std::cout <<" operator
+        {
+            std::string car_to_view = "";
+            std::getline(std::cin, car_to_view);
+            if (car_to_view == "Ferrari 812 Superfast" || car_to_view == "ferrari 812 superfast")
+            {
+                std::cout << Superfast;
+                rent_car(availablecars, "Ferrari 812 Superfast", car_chosen, owner); //goes through the renting process
+                if (car_chosen == true) //for some reason, the loop wasn't breaking
+                {
+                    break;
+                }
+            }
+            else if(car_to_view == "Ferrari 812 GTS" || car_to_view == "ferrari 812 gts" || car_to_view == "ferrari 812 GTS")
+            {
+                std::cout << GTS;
+                rent_car(availablecars, "Ferrari 812 GTS", car_chosen, owner);
+                if (car_chosen == true)
+                {
+                    break;
+                }
+            }
+            else if (car_to_view == "Ferrari SF90 Stradale" || car_to_view == "ferrari sf90 stradale" || car_to_view == "ferrari SF90 stradale")
+            {
+                std::cout << Stradale;
+                rent_car(availablecars, "Ferrari SF90 Stradale", car_chosen, owner);
+                if (car_chosen == true)
+                {
+                    break;
+                }
+            }
+            else if (car_to_view == "Ferrari SF90 Spider" || car_to_view == "ferrari sf90 spider" || car_to_view == "ferrari SF90 spider")
+            {
+                std::cout << SFSpider;
+                rent_car(availablecars, "Ferrari SF90 Spider", car_chosen, owner);
+                if (car_chosen == true)
+                {
+                    break;
+                }
+            }
+            else if (car_to_view == "Ferrari F8 Tributo" || car_to_view == "ferrari f8 tributo" || car_to_view == "ferrari F8 tributo")
+            {
+                std::cout << Tributo;
+                rent_car(availablecars, "Ferrari F8 Tributo", car_chosen, owner);
+                if (car_chosen == true)
+                {
+                    break;
+                }
+            }
+            else if (car_to_view == "Ferrari F8 Spider" || car_to_view == "ferrari f8 spider" || car_to_view == "ferrari F8 spider")
+            {
+                std::cout << F8Spider;
+                rent_car(availablecars, "Ferrari F8 Spider", car_chosen, owner);
+                if (car_chosen == true)
+                {
+                    break;
+                }
+            }
+            else if (car_to_view == "Ferrari Roma" || car_to_view == "ferrari roma")
+            {
+                std::cout << Roma;
+                rent_car(availablecars, "Ferrari Roma", car_chosen, owner);
+                if (car_chosen == true)
+                {
+                    break;
+                }
+            }
+            else if (car_to_view == "Ferrari Portofino M" || car_to_view == "ferrari portofino m" || car_to_view == "ferrari portofino M")
+            {
+                std::cout << Portofino;
+                rent_car(availablecars, "Ferrari Portofino M", car_chosen, owner);
+                if (car_chosen == true)
+                {
+                    break;
+                }
+            }
+            else if (car_to_view == "Ferrari Monza SP1" || car_to_view == "ferrari monza sp1" || car_to_view == "ferrari monza SP1")
+            {
+                std::cout << MonzaSP1;
+                rent_car(availablecars, "Ferrari Monza SP1", car_chosen, owner);
+                if (car_chosen == true)
+                {
+                    break;
+                }
+            }
+            else if (car_to_view == "Ferrari Monza SP2" || car_to_view == "ferrari monza sp2" || car_to_view == "ferrari monza SP2")
+            {
+                std::cout << MonzaSP2;
+                rent_car(availablecars, "Ferrari Monza SP2", car_chosen, owner);
+                if (car_chosen == true)
+                {
+                    break;
+                }
+            }
+            else 
+            {
+                std::cout << "That is not a valid car name, please type out the car name fully\n\n";
+            }
         }
         if (availablecars.size() == 0) //if the size is nothign
         {
@@ -128,7 +267,7 @@ void car_interaction(std::string owner) //allows user to buy or sell cars
     if (user_details.size() == 2)
     {
         std::cout << "Do you want to rent a car? Please type Yes or No\n";
-        renting_process();
+        renting_process(owner);
     }
     else
     {
