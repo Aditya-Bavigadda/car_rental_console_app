@@ -44,34 +44,60 @@ std::ostream& operator << (std::ostream& output, Ferrari_Car car) //allows us to
     return output;
 }
 
-void rent_car(std::vector<std::string> availablecars, std::string car_name, bool car_chosen, std::string owner)
+void rent_car(std::vector<std::string> availablecars, std::string car_name, std::string owner)
 {
-    if (std::find(availablecars.begin(), availablecars.end(), car_name) != availablecars.end()) //if the car is available
+    bool car_rented = false;
+    do
     {
-        std::cout << "Do you want to rent this car? Please type yes or no\n";
-        std::string rent_car;
-        std::getline(std::cin, rent_car);
-        if (rent_car == "yes" || rent_car == "Yes")
+        if (std::find(availablecars.begin(), availablecars.end(), car_name) != availablecars.end()) //if the car is available
         {
-            std::fstream file(car_name, std::ios::app);
-            file << owner;
-            std::cout << "Well done, the car has been succesfully rented\n";
-            std::fstream file2(owner, std::ios::app);
-            file2 << "\n" << car_name;
-            car_chosen = true;
+            std::cout << "Do you want to rent this car? Please type yes or no\n";
+            std::string rent_car;
+            std::getline(std::cin, rent_car); //gets the car that the user wants to rent
+            if (rent_car == "yes" || rent_car == "Yes")
+            {
+                std::fstream file(car_name, std::ios::app);
+                file << owner; //in the car file, says the car has been taken by this user
+                std::cout << "Well done, the car has been succesfully rented\n";
+                std::fstream file2(owner, std::ios::app);
+                file2 << "\n" << car_name; //puts the car name in the user file
+                car_rented = true; //allows the loop to be exited
+            }
+            else if (rent_car == "no" || rent_car == "No")
+            {
+                std::cout << "Okay, please type another car's name to view its stats\n"; //if user does not want to rent this car
+            }
+            else
+            {
+                std::cout << "Invalid answer, please type a car's name to view its stats\n";
+            }
         }
-        else if (rent_car == "no" || rent_car == "No")
+        else //if not
         {
-            std::cout << "Okay, please type another car's name to view its stats\n";
-        }
-        else
-        {
-            std::cout << "Invalid answer, please type a car's name to view its stats\n";
+            std::cout << "This car is unavailable, so you can not rent it, please type another car to view its stats: \n";
         }
     }
-    else //if not
+    while (car_rented == false);
+}
+
+void returning_process(std::vector<std::string> user_details)
+{
+    std::string user_answer;
+    std::cin >> user_answer; //gets the user answer if they want to return their car
+
+    if (user_answer == "yes" || user_answer == "Yes")
     {
-        std::cout << "This car is unavailable, so you can not rent it, please type another car to view its stats: \n";
+        //recreate car file as empty
+        //recreate user file as empty
+        //thank the user for logging in
+    }
+    else if (user_answer == "no" || user_answer == "No")
+    {
+        std::cout << "Okay, thank you for logging in\n";
+    }
+    else 
+    {
+        std::cout << "Invalid answer, redirecting back to starting page\n";
     }
 }
 
@@ -142,92 +168,63 @@ void renting_process(std::string owner) //user can rent a car
             if (car_to_view == "Ferrari 812 Superfast" || car_to_view == "ferrari 812 superfast")
             {
                 std::cout << Superfast;
-                rent_car(availablecars, "Ferrari 812 Superfast", car_chosen, owner); //goes through the renting process
-                if (car_chosen == true) //for some reason, the loop wasn't breaking
-                {
-                    break;
-                }
+                rent_car(availablecars, "Ferrari 812 Superfast", owner); //goes through the renting process
+                break;
             }
             else if(car_to_view == "Ferrari 812 GTS" || car_to_view == "ferrari 812 gts" || car_to_view == "ferrari 812 GTS")
             {
                 std::cout << GTS;
-                rent_car(availablecars, "Ferrari 812 GTS", car_chosen, owner);
-                if (car_chosen == true)
-                {
-                    break;
-                }
+                rent_car(availablecars, "Ferrari 812 GTS", owner);
+                break;
             }
             else if (car_to_view == "Ferrari SF90 Stradale" || car_to_view == "ferrari sf90 stradale" || car_to_view == "ferrari SF90 stradale")
             {
                 std::cout << Stradale;
-                rent_car(availablecars, "Ferrari SF90 Stradale", car_chosen, owner);
-                if (car_chosen == true)
-                {
-                    break;
-                }
+                rent_car(availablecars, "Ferrari SF90 Stradale", owner);
+                break;
+                
             }
             else if (car_to_view == "Ferrari SF90 Spider" || car_to_view == "ferrari sf90 spider" || car_to_view == "ferrari SF90 spider")
             {
                 std::cout << SFSpider;
-                rent_car(availablecars, "Ferrari SF90 Spider", car_chosen, owner);
-                if (car_chosen == true)
-                {
-                    break;
-                }
+                rent_car(availablecars, "Ferrari SF90 Spider", owner);
+                break;
             }
             else if (car_to_view == "Ferrari F8 Tributo" || car_to_view == "ferrari f8 tributo" || car_to_view == "ferrari F8 tributo")
             {
                 std::cout << Tributo;
-                rent_car(availablecars, "Ferrari F8 Tributo", car_chosen, owner);
-                if (car_chosen == true)
-                {
-                    break;
-                }
+                rent_car(availablecars, "Ferrari F8 Tributo", owner);
+                break;  
             }
             else if (car_to_view == "Ferrari F8 Spider" || car_to_view == "ferrari f8 spider" || car_to_view == "ferrari F8 spider")
             {
                 std::cout << F8Spider;
-                rent_car(availablecars, "Ferrari F8 Spider", car_chosen, owner);
-                if (car_chosen == true)
-                {
-                    break;
-                }
+                rent_car(availablecars, "Ferrari F8 Spider", owner);
+                break;
             }
             else if (car_to_view == "Ferrari Roma" || car_to_view == "ferrari roma")
             {
                 std::cout << Roma;
-                rent_car(availablecars, "Ferrari Roma", car_chosen, owner);
-                if (car_chosen == true)
-                {
-                    break;
-                }
+                rent_car(availablecars, "Ferrari Roma", owner);
+                break;
             }
             else if (car_to_view == "Ferrari Portofino M" || car_to_view == "ferrari portofino m" || car_to_view == "ferrari portofino M")
             {
                 std::cout << Portofino;
-                rent_car(availablecars, "Ferrari Portofino M", car_chosen, owner);
-                if (car_chosen == true)
-                {
-                    break;
-                }
+                rent_car(availablecars, "Ferrari Portofino M", owner);
+                break;
             }
             else if (car_to_view == "Ferrari Monza SP1" || car_to_view == "ferrari monza sp1" || car_to_view == "ferrari monza SP1")
             {
                 std::cout << MonzaSP1;
-                rent_car(availablecars, "Ferrari Monza SP1", car_chosen, owner);
-                if (car_chosen == true)
-                {
-                    break;
-                }
+                rent_car(availablecars, "Ferrari Monza SP1", owner);
+                break;
             }
             else if (car_to_view == "Ferrari Monza SP2" || car_to_view == "ferrari monza sp2" || car_to_view == "ferrari monza SP2")
             {
                 std::cout << MonzaSP2;
-                rent_car(availablecars, "Ferrari Monza SP2", car_chosen, owner);
-                if (car_chosen == true)
-                {
-                    break;
-                }
+                rent_car(availablecars, "Ferrari Monza SP2", owner);
+                break;
             }
             else 
             {
@@ -247,8 +244,6 @@ void renting_process(std::string owner) //user can rent a car
     {
         std::cout << "Invalid answer, redirecting back to starting page\n";
     }
-    //if no, exit application
-     //if yes, show them AVAILABLE cars and say if they type in car name, you will show them stats and confirm if they want to rent this car
 }
 
 void car_interaction(std::string owner) //allows user to buy or sell cars
@@ -272,10 +267,8 @@ void car_interaction(std::string owner) //allows user to buy or sell cars
     else
     {
         std::cout << "Do you want to return your " << user_details[2] << "? Please type Yes or No\n";
-        //if no, exit application
-        //if yes, return car and ask if they want to rent another car
+        returning_process(user_details);
     }
-    //could have time rented?
 }
 
 void login_process()
