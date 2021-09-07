@@ -115,9 +115,8 @@ void renting_process(std::string owner) //user can rent a car
     std::vector<std::string> carlist = { "Ferrari 812 Superfast", "Ferrari 812 GTS", "Ferrari SF90 Stradale", "Ferrari SF90 Spider", "Ferrari F8 Tributo", "Ferrari F8 Spider", "Ferrari Roma", "Ferrari Portofino M", "Ferrari Monza SP1", "Ferrari Monza SP2" };
     if (user_answer == "yes" || user_answer == "Yes") //if user answers yes
     {
-        int current_car_from_carlist = 0;
-         std::vector<std::string> availablecars; //holds an array of the cars that are available to be rented
-        for (current_car_from_carlist; current_car_from_carlist < carlist.size(); ++current_car_from_carlist)
+        std::vector<std::string> availablecars; //holds an array of the cars that are available to be rented
+        for (int current_car_from_carlist = 0; current_car_from_carlist < carlist.size(); ++current_car_from_carlist)
         {
             std::string available_car = "";
             std::ifstream myfile(carlist[current_car_from_carlist], std::fstream::app); //creates file of the car if not created and opens it if it is

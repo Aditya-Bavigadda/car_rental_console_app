@@ -4,6 +4,10 @@
 #include <iostream>
 #endif
 #include "string.h"
+#ifndef FSTREAM_H
+#define FSTREAM_H
+#include <fstream>
+#endif
 class Ferrari_Car
 {
     friend std::ostream& operator << (std::ostream& output, Ferrari_Car car);
