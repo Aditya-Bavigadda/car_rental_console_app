@@ -23,52 +23,52 @@ void rent_car(std::vector<std::string> availablecars, std::string owner, std::ve
         std::string car_to_view = "";
         std::getline(std::cin, car_to_view); //gets the car that the user wants to hire
         std::string car_name;
-        if (stringLower(car_to_view) == "Ferrari 812 Superfast")
+        if (stringLower(car_to_view) == "ferrari 812 superfast")
         {
             std::cout << Superfast;
             car_name = "Ferrari 812 Superfast"; //sets the car name that the program needs to find
         }
-        else if (stringLower(car_to_view) == "Ferrari 812 GTS")
+        else if (stringLower(car_to_view) == "ferrari 812 gts")
         {
             std::cout << GTS;
             car_name = "Ferrari 812 GTS";
         }
-        else if (stringLower(car_to_view) == "Ferrari SF90 Stradale")
+        else if (stringLower(car_to_view) == "ferrari sf90 stradale")
         {
             std::cout << Stradale;
             car_name = "Ferrari SF90 Stradale";
         }
-        else if (stringLower(car_to_view) == "Ferrari SF90 Spider")
+        else if (stringLower(car_to_view) == "ferrari sf90 spider")
         {
             std::cout << SFSpider;
             car_name = "Ferrari SF90 Spider";
         }
-        else if (stringLower(car_to_view) == "Ferrari F8 Tributo")
+        else if (stringLower(car_to_view) == "ferrari f8 tributo")
         {
             std::cout << Tributo;
             car_name = "Ferrari F8 Tributo";
         }
-        else if (stringLower(car_to_view) == "Ferrari F8 Spider")
+        else if (stringLower(car_to_view) == "ferrari f8 spider")
         {
             std::cout << F8Spider;
             car_name = "Ferrari F8 Spider";
         }
-        else if (stringLower(car_to_view) == "Ferrari Roma")
+        else if (stringLower(car_to_view) == "ferrari roma")
         {
             std::cout << Roma;
             car_name = "Ferrari Roma";
         }
-        else if (stringLower(car_to_view) == "Ferrari Portofino M")
+        else if (stringLower(car_to_view) == "ferrari portofino m")
         {
             std::cout << Portofino;
             car_name = "Ferrari Portofino M";
         }
-        else if (stringLower(car_to_view) == "Ferrari Monza SP1")
+        else if (stringLower(car_to_view) == "ferrari monza sp1")
         {
             std::cout << MonzaSP1;
             car_name = "Ferrari Monza SP1";
         }
-        else if (stringLower(car_to_view) == "Ferrari Monza SP2")
+        else if (stringLower(car_to_view) == "ferrari monza sp2")
         {
             std::cout << MonzaSP2;
             car_name = "Ferrari Monza SP2";
